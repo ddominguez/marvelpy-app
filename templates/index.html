@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>marvelpy app</title>
+</head>
+
+<body>
+<p>{{attributionHTML|safe}}</p>
+<p>{{result.name}} has appeared in the following comics:</p>
+<ul>
+    {%- for comic in result['comics']['items'] -%}
+    <li>{{ comic.name }}</li>
+    {%- endfor -%}
+</ul>
+</body>
+</html>
