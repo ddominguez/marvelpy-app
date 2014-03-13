@@ -8,14 +8,27 @@ app.config['DEBUG'] = settings.DEBUG
 
 @app.route('/')
 def index():
-    # Gambit!
-    character = marvel.characters(id=1009313)
+    # Age of Apocalypse!
+    character = marvel.events(id=227)
     data = character.json()
-    result = data['data']['results'][0]
+    eventResult = data['data']['results'][0]
+
+    # get comics for this event
+    params = {
+        'format': 'comic',
+        'formatType': 'comic',
+        'noVariants': 'false',
+        'orderBy': 'onsaleDate',
+        'limit': eventResult['comics']['available'],
+        'offset': 0
+    }
+    comics = marvel.events(id=227, list_type='comics', params=params)
+    comicsResult = comics.json()['data']['results']
     return render_template(
         'index.html',
         attributionHTML=data['attributionHTML'],
-        result=result
+        eventResult=eventResult,
+        comicsResult=comicsResult
     )
 
 if __name__ == '__main__':

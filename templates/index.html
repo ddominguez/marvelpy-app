@@ -8,10 +8,11 @@
 
 <body>
 <p>{{attributionHTML|safe}}</p>
-<p>{{result.name}} has appeared in the following comics:</p>
+<h1>{{eventResult.title}}</h1>
+<p>{{eventResult.description}}</p>
 <ul>
-    {%- for comic in result['comics']['items'] -%}
-    <li>{{ comic.name }}</li>
+    {%- for comic in comicsResult -%}
+    <li>{{ comic.title }}</li>
     {%- endfor -%}
 </ul>
 </body>
