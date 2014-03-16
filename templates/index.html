@@ -9,10 +9,19 @@
 <body>
 <p>{{attributionHTML|safe}}</p>
 <h1>{{eventResult.title}}</h1>
-<p>{{eventResult.description}}</p>
-<ul>
+
+<div id="event-info">
+    <img src="{{thumbnailUrl}}" />
+    <p>{{eventResult.description}}</p>    
+</div>
+
+<h2>Comics</h2>
+<ul id="comics">
     {%- for comic in comicsResult -%}
-    <li>{{ comic.title }}</li>
+    <li>
+    {{ comic.thumbnail|marvel_image|safe }}
+    <span>{{ comic.title }}</span>
+    </li>
     {%- endfor -%}
 </ul>
 </body>

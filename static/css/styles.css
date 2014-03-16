@@ -1,3 +1,52 @@
 body {
+    cursor: default;
     font: 12px helvetica;
+}
+
+#event-info {
+    overflow: auto;
+    width: 790px;
+}
+
+#event-info img {
+    float: left;
+}
+
+#event-info p {
+    float: left;
+    line-height: 18px;
+    margin: 0 0 0 10px;
+    width: 450px;
+}
+
+#comics {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 900px;
+}
+
+#comics li {
+    /*border: 1px solid #005;*/
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    padding: 0;
+    position: relative;
+    width: auto;
+}
+
+#comics li span {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.75)
+}
+
+#comics li:hover span {
+    display: block;
+    bottom: 0;
+    color: #222;
+    font-weight: bold;
+    padding: 5px 0;
+    text-align: center;
+    width: 100%;
 }
