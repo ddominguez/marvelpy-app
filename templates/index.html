@@ -12,10 +12,15 @@
 
 <div id="event-info">
     <img src="{{thumbnailUrl}}" />
-    <p>{{eventResult.description}}</p>    
+    <p>{{eventResult.description}}</p>
+    {% if eventResult.urls %}
+    {%- for url in eventResult.urls -%}
+    <p><a href="{{url.url}}">{{url.type}}</a></p>
+    {%- endfor -%}
+    {% endif %}
 </div>
 
-<h2>Comics</h2>
+<h2>{{eventResult.title}} Comics</h2>
 <ul id="comics">
     {%- for comic in comicsResult -%}
     <li>
