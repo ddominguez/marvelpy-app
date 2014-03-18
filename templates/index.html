@@ -1,33 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>marvelpy app</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
 <body>
-<p>{{attributionHTML|safe}}</p>
-<h1>{{eventResult.title}}</h1>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+<!--             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button> -->
+            <a class="navbar-brand" href="#">Marvel Events</a>
+        </div>
+        <p class="navbar-text navbar-right">{{attributionHTML|safe}}</p>
+    </div>
+</div>
+<div class="container">
+    <div class="page-header">
+      <h1>{{eventResult.title}}</h1>
+    </div>
 
-<div id="event-info">
-    <img src="{{thumbnailUrl}}" />
-    <p>{{eventResult.description}}</p>
-    {% if eventResult.urls %}
-    {%- for url in eventResult.urls -%}
-    <p><a href="{{url.url}}">{{url.type}}</a></p>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <img class="img-rounded img-responsive" src="{{thumbnailUrl}}" />
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <p>{{eventResult.description}}</p>
+            {% if eventResult.urls %}
+            {%- for url in eventResult.urls -%}
+            <p><a href="{{url.url}}">{{url.type}}</a></p>
+            {%- endfor -%}
+            {% endif %}
+        </div>
+    </div>
+
+    <h2>{{eventResult.title}} Comics</h2>
+    <div class="row">
+    {%- for comic in comicsResult -%}
+        <div class="col-xs-3 col-md-3">
+            <div class="thumbnail">{{ comic.thumbnail|marvel_image|safe }}</div>
+        </div>
     {%- endfor -%}
-    {% endif %}
+    </div>
 </div>
 
-<h2>{{eventResult.title}} Comics</h2>
-<ul id="comics">
-    {%- for comic in comicsResult -%}
-    <li>
-    {{ comic.thumbnail|marvel_image|safe }}
-    <span>{{ comic.title }}</span>
-    </li>
-    {%- endfor -%}
-</ul>
 </body>
 </html>
