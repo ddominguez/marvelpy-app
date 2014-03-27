@@ -20,6 +20,13 @@
             </button> -->
             <a class="navbar-brand" href="#">Marvel Events</a>
         </div>
+        <div class="navbar-form navbar-left" id="nav-select-event">
+            <select class="form-control" onchange=window.location='?id='+this.value>
+                {%- for event in events -%}
+                <option value="{{event.id}}" {% if event.id==eventId %}selected{% endif %}>{{event.title}}</option>
+                {%- endfor -%}
+            </select>
+        </div>
         <p class="navbar-text navbar-right">{{attributionHTML|safe}}</p>
     </div>
 </div>

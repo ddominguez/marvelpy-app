@@ -1,5 +1,5 @@
 import settings
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 from marvelpy import Marvel
 
 app = Flask(__name__)
@@ -14,11 +14,15 @@ def marvel_image(o):
 
 @app.route('/')
 def index():
-    # Age of Apocalypse!
-    character = marvel.events(id=227)
-    data = character.json()
-    eventResult = data['data']['results'][0]
-    thumbnail = marvel.image(data['data']['results'][0]['thumbnail'], 'standard', 'fantastic')
+    events = marvel.events(params={'orderBy': 'name'}).json()
+
+    # first event is default event
+    eventId = request.args.get('id', events['data']['results'][0]['id'])
+
+    # get event
+    character = marvel.events(id=eventId).json()
+    eventResult = character['data']['results'][0]
+    thumbnail = marvel.image(character['data']['results'][0]['thumbnail'], 'standard', 'fantastic')
     thumbnailUrl = thumbnail['url']
 
     # get comics for this event
@@ -27,17 +31,19 @@ def index():
         'formatType': 'comic',
         'noVariants': 'false',
         'orderBy': 'onsaleDate',
-        'limit': eventResult['comics']['available'],
+        'limit': 40,
         'offset': 0
     }
-    comics = marvel.events(id=227, list_type='comics', params=params)
+    comics = marvel.events(id=eventId, list_type='comics', params=params)
     comicsResult = comics.json()['data']['results']
     return render_template(
         'index.html',
-        attributionHTML=data['attributionHTML'],
+        attributionHTML=events['attributionHTML'],
         eventResult=eventResult,
         comicsResult=comicsResult,
-        thumbnailUrl=thumbnailUrl
+        thumbnailUrl=thumbnailUrl,
+        events=events['data']['results'],
+        eventId=int(eventId)
     )
 
 if __name__ == '__main__':
