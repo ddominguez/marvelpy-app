@@ -1,9 +1,7 @@
-DEBUG = False
+import os
 
-MARVEL_API_KEY = ''
-MARVEL_PRIVATE_KEY = ''
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
+# get data environment variables
+DEBUG = os.environ.get('FlASK_DEBUG', False)
+PORT = int(os.environ.get('PORT', 5000))
+MARVEL_API_KEY = os.environ.get('MARVEL_API_KEY', '')
+MARVEL_PRIVATE_KEY = os.environ.get('MARVEL_PRIVATE_KEY', '')
