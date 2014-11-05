@@ -51,4 +51,4 @@ if __name__ == '__main__':
         api_key=settings.MARVEL_API_KEY,
         private_key=settings.MARVEL_PRIVATE_KEY
     )
-    app.run()
+    app.run(port=settings.PORT)
